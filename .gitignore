@@ -9,6 +9,12 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+
+bin/
+include/
+lib64
+pip-selfcheck.json
+
 build/
 develop-eggs/
 dist/
