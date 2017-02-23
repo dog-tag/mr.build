@@ -1,12 +1,16 @@
 
 
+import os
+
 import traceback
 
 from subprocess import call, Popen, check_output
 
-from build_configs import BUILD_COMMANDS
+from build_configs import BUILD_COMMANDS, ChangeDir
 
 print BUILD_COMMANDS
+
+BUILD_DIR = os.getcwd()
 
 for construct in BUILD_COMMANDS:
 
@@ -35,5 +39,20 @@ for construct in BUILD_COMMANDS:
         print construct.on_success % construct._asdict()
 
     for reset in construct.teardown:
-        print "$ ", ' '.join(reset)
-        check_output(reset)
+
+        #import pdb; pdb.set_trace() ## XXX: Remove This
+        if isinstance(reset, ChangeDir):
+            
+            print ">>>", os.getcwd()
+            #import pdb; pdb.set_trace()
+            os.chdir(os.path.join(BUILD_DIR, reset.target))
+            print reset.target
+            print ">>>", os.getcwd()
+        #elif not isinstance(reset, ChangeDir):
+        #    os.chdir(BUILD_DIR)
+        else:
+            print '=========================================\n', reset
+            cmd = Popen(reset)
+            out = cmd.communicate()
+
+            print out

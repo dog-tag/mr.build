@@ -1,4 +1,8 @@
 
+import os
+
+PY_VERSION = '2.7.13'
+
 from collections import namedtuple
 
 def build_command(cmd,
@@ -43,6 +47,11 @@ def build_command(cmd,
     )
 
 
+class ChangeDir(object):
+    def __init__(self, target):
+        self.target = target
+
+
 BUILD_COMMANDS = [
 
     build_command(
@@ -52,13 +61,25 @@ BUILD_COMMANDS = [
         on_error='Command %(cmd)s failed !. ERROR: {}',
     ),
 
+    #
+    # Install Python as Virtual Environment.
     build_command(
-        cmd=('wget', 'www.google.com', ),
+        cmd=('ls'),  #'wget', '-P', 'downloads/', 'https://www.python.org/ftp/python/{0}/Python-{0}.tar.xz'.format(PY_VERSION), ),
         setup=[
             ('cd', 'downloads/', )
         ],
         teardown=[
-            ('cd', '../', )
+            ChangeDir('downloads/'),
+            ('tar', '-xvJf', 'Python-{0}.tar.xz'.format(PY_VERSION)),
+            ChangeDir('downloads/Python-{0}/'.format(PY_VERSION)),
+            ('./configure', '--prefix={0}/usr/'.format(os.getcwd()), '--enable-unicode=ucs4'),
+            ChangeDir('downloads/Python-{0}/'.format(PY_VERSION)),
+            ('make'),
+            ChangeDir('downloads/Python-{0}/'.format(PY_VERSION)),
+            ('make', 'install'),
+            ChangeDir('../'),
+            ('rm', '-rvf', 'downloads/Python-{0}/'.format(PY_VERSION), ),
+            ChangeDir('../'),
         ],
         desc='Fetching Python',
         on_success='Command %(cmd)s ran successfully !',
