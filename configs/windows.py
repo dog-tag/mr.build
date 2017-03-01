@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Linux script.
+"""Windows script.
 
 This module holds the commands to install necessary packages
 on windows platform.
