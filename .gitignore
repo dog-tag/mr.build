@@ -10,8 +10,8 @@ __pycache__/
 .Python
 env/
 
-usr/
-bin/
+#usr/
+#bin/
 include/
 lib64
 pip-selfcheck.json
