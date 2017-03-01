@@ -1,4 +1,18 @@
+# -*- coding: utf-8 -*-
+
+"""Commons script.
+
+It's a collection of utility methods and classes 
+for the project.
+
+Todo:
+    * To be completed...
+
+"""
+
+# --------------- START: Native Imports -------------- #
 from collections import namedtuple
+# --------------- END: Native Imports -------------- #
 
 def build_expr(cmd,
                   setup=None,
@@ -46,10 +60,11 @@ SimpleCommand = namedtuple('SimpleCommand', 'cmd')
 ComplexCommand = namedtuple('ComplexCommand', 'if_, if_axn, else_axn')
 
 def simple_command(cmd):
+    """."""
     return SimpleCommand(cmd=cmd.split())
 
 def complex_command(if_=None, if_axn=None, else_axn=None):
-
+    """."""
     if_ = if_ and if_.split()
     if_axn = if_axn.split() if isinstance(if_axn, str) else if_axn
     else_axn = else_axn.split() if isinstance(else_axn, str) else else_axn
@@ -58,16 +73,19 @@ def complex_command(if_=None, if_axn=None, else_axn=None):
 
 
 class ChangeDir(object):
+    """."""
     def __init__(self, target=None):
         self.target = target
 
 
 class TextMessage(object):
+    """."""
     def __init__(self, msg):
         self.message = msg
 
 
 class AbortBuild(object):
+    """."""
     def __init__(self, message):
         self.message = message
 
