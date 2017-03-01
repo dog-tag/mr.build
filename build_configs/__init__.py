@@ -99,7 +99,7 @@ BUILD_COMMANDS = [
             ChangeDir('downloads/'),
             simple_command('tar -xvJf Python-{0}.tar.xz'.format(PY_VERSION)),
             ChangeDir('downloads/Python-{0}/'.format(PY_VERSION)),
-            simple_command('./configure --prefix={0}/usr/ --enable-unicode=ucs4'.format(os.getcwd())),
+            simple_command('./configure --prefix={0}/usr/ --enable-unicode=ucs4 --enable-optimizations'.format(os.getcwd())),
             simple_command('make'),
             simple_command('make install'),
         ],
