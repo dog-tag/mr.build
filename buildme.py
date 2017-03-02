@@ -16,7 +16,6 @@ BUILD_DIR = os.getcwd()
 
 
 def execute(cmd):
-    import pdb; pdb.set_trace() ## XXX: Remove This
     if isinstance(cmd, AbortBuild):
         raise Exception(cmd.message)
     return check_output(cmd)
@@ -38,7 +37,6 @@ def evaluate(command_list):
             os.chdir(change_to)
 
         if isinstance(command, SimpleCommand):
-            import pdb; pdb.set_trace() ## XXX: Remove This
             print execute(command.cmd)
 
         if isinstance(command, ComplexCommand):
@@ -58,7 +56,6 @@ def evaluate(command_list):
 
 for construct in BUILD_COMMANDS:
 
-    import pdb; pdb.set_trace() ## XXX: Remove This
     try:
         if construct.setup:
             pass
