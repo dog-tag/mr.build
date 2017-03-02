@@ -6,7 +6,12 @@ import traceback
 
 from subprocess import call, Popen, check_output
 
-from configs import BUILD_COMMANDS, ChangeDir, ComplexCommand, SimpleCommand, TextMessage, AbortBuild
+# TODO: patched for Windows
+from configs.linux import BUILD_COMMANDS
+
+from utils.commons import (
+    ChangeDir, ComplexCommand, SimpleCommand, TextMessage, AbortBuild
+)
 
 from pprint import pprint as pp
 
