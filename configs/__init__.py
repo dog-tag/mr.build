@@ -12,8 +12,6 @@ from ConfigParser import SafeConfigParser
 
 
 # --------------- START: In-House Imports -------------- #
-from configs import versions_config
-
 from utils.commons import (
     ChangeDir, AbortBuild, TextMessage, build_expr, simple_command, complex_command
 )
