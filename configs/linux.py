@@ -12,11 +12,16 @@ Todo:
     * To be completed...
 
 """
+
+
 # --------------- START: Native Imports -------------- #
 import os
 # --------------- END: Native Imports -------------- #
 
+
 # --------------- START: In-House Imports -------------- #
+from configs import versions_config
+
 from utils.commons import (
     ChangeDir, AbortBuild, TextMessage, build_expr, simple_command, complex_command
 )
@@ -28,7 +33,7 @@ __all__ = [
 ]
 
 
-PY_VERSION = '2.7.13'
+PY_VERSION = versions_config('build', 'python')
 """``str``: Module level variable.  Version number for the python.
 """
 
