@@ -1,35 +1,68 @@
+# -*- coding: utf-8 -*-
 
+"""Initial buildme script.
 
+This module demonstrates that how to run this build, which sets up the basic
+platform for the project.
+
+Example:
+        $ python buildme.py
+
+Todo:
+    * To be completed...
+
+"""
+
+# --------------- START: Native Imports -------------- #
 import os
-
 import traceback
 
+from pprint import pprint as pp
 from subprocess import call, Popen, check_output
+# --------------- END: Native Imports -------------- #
 
+# --------------- START: Third-Party Imports -------------- #
+# --------------- END: Third-Party Imports -------------- #
+
+# --------------- START: In-House Imports -------------- #
 # TODO: patched for Windows
 from configs.linux import BUILD_COMMANDS
 
 from utils.commons import (
     ChangeDir, ComplexCommand, SimpleCommand, TextMessage, AbortBuild
 )
+# --------------- END: In-House Imports -------------- #
 
-from pprint import pprint as pp
 
-pp(BUILD_COMMANDS)
+__all__ = [
+    # Public Symbols.
+]
+
 
 BUILD_DIR = os.getcwd()
+"""``str``: Module level variable.  Absolute path to the BUILD Directory.
+"""
 
 
 def execute(cmd):
+
+    """."""
+
     if isinstance(cmd, AbortBuild):
         raise Exception(cmd.message)
     return check_output(cmd)
 
+
 def test_execute(cmd):
+
+    """."""
+
     return bool(check_output(cmd))
 
 
 def evaluate(command_list):
+
+    """."""
 
     for command in command_list:
         print ">>>", command
@@ -61,19 +94,14 @@ def evaluate(command_list):
 
 for construct in BUILD_COMMANDS:
 
-    try:
-        if construct.setup:
-            pass
+    if construct.setup:
+        pass
 
-        if construct.setup:
-            evaluate(construct.setup)
+    if construct.setup:
+        evaluate(construct.setup)
 
-        if construct.cmd:
-            evaluate(construct.cmd)
+    if construct.cmd:
+        evaluate(construct.cmd)
 
-        if construct.teardown:
-            evaluate(construct.teardown)
-
-    except Exception as error:
-        print str(error)
-
+    if construct.teardown:
+        evaluate(construct.teardown)
